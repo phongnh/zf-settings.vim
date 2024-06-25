@@ -4,7 +4,7 @@ function! s:boutline_format(line) abort
     let format = '%' . len(string(line('$'))) . 's'
     let linenr = columns[2][:len(columns[2])-3]
     let line = zf_settings#Trim(getline(linenr))
-    return join([printf(format, linenr), line], g:zf_symbols.tab)
+    return join([printf(format, linenr), line], g:zf_symbols.sep)
 endfunction
 
 function! s:boutline_source(tag_cmds) abort
@@ -31,7 +31,7 @@ function! s:boutline_source(tag_cmds) abort
 endfunction
 
 function! s:boutline_sink(path, editcmd, line) abort
-    let linenr = zf_settings#Trim(split(a:line, g:zf_symbols.tab)[0])
+    let linenr = zf_settings#Trim(split(a:line, g:zf_symbols.sep)[0])
     execute printf("%s +%s %s", a:editcmd, linenr, a:path)
 endfunction
 
