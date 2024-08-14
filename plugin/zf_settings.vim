@@ -55,13 +55,8 @@ let g:zf_follow_links       = get(g:, 'zf_follow_links', 1)
 let g:zf_grep_no_ignore_vcs = get(g:, 'zf_grep_no_ignore_vcs', 0)
 
 let g:zf_ctags_bin    = get(g:, 'zf_ctags_bin', 'ctags')
-let g:zf_ctags_ignore = get(g:, 'zf_ctags_ignore', expand('~/.ctagsignore'))
-
-if get(g:, 'zf_universal_ctags', zf_settings#IsUniversalCtags(g:zf_ctags_bin)) && filereadable(g:zf_ctags_ignore)
-    let g:zf_tags_command = printf('%s --exclude=@%s -R', g:zf_ctags_bin, g:zf_ctags_ignore)
-else
-    let g:zf_tags_command = printf('%s -R', g:zf_ctags_bin)
-endif
+let g:zf_ctags_ignore = expand(get(g:, 'zf_ctags_ignore', ''))
+let g:zf_tags_command = g:zf_ctags_bin . (filereadable(g:zf_ctags_ignore) ? ' --exclude=@' . g:zf_ctags_ignore : '') . ' -R'
 
 function! s:BuildFindCommand() abort
     let find_commands = {

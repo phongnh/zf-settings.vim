@@ -40,10 +40,6 @@ function! zf_settings#AlignLists(lists) abort
     return a:lists
 endfunction
 
-function! zf_settings#IsUniversalCtags(ctags_bin) abort
-    return system(a:ctags_bin . ' --version') =~# 'Universal Ctags'
-endfunction
-
 function! zf_settings#ZfOpts(title) abort
     let opts = get(g:, 'zf', {})->deepcopy()->extend({ 'statusline': a:title })
     call get(opts, 'popup', {})->extend({ 'title': a:title })
