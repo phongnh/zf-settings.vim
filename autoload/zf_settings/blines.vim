@@ -13,7 +13,7 @@ endfunction
 function! zf_settings#blines#run() abort
     let items = s:blines_source()
     if empty(items)
-        return zf_settings#Warn('No lines!')
+        return zf_settings#warn('No lines!')
     endif
-    call zf#Start(items, funcref('s:blines_sink'), zf_settings#ZfOpts('BufLines: ' . expand('%')))
+    call zf#Start(items, funcref('s:blines_sink'), zf_settings#zf_opts('BufLines: ' . expand('%')))
 endfunction

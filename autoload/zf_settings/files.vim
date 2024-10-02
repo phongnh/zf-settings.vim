@@ -1,7 +1,7 @@
 function! s:open_file_sink(dir, vim_cmd, choice) abort
     let fpath = fnamemodify(a:dir, ':p:s?/$??') . '/' . a:choice
     let fpath = fpath->resolve()->fnamemodify(':.')->fnameescape()
-    call zf_settings#TryExe(printf('%s %s', a:vim_cmd, fpath))
+    call zf_settings#try_exe(printf('%s %s', a:vim_cmd, fpath))
 endfunction
 
 function! s:opts(opts) abort
@@ -16,7 +16,7 @@ endfunction
 
 function! zf_settings#files#run(...) abort
     let l:opts = s:opts(get(a:, 1, {}))
-    call zf#Start(l:opts.filecmd, funcref('s:open_file_sink', [l:opts.path, l:opts.opencmd]), zf_settings#ZfOpts(l:opts.stl))
+    call zf#Start(l:opts.filecmd, funcref('s:open_file_sink', [l:opts.path, l:opts.opencmd]), zf_settings#zf_opts(l:opts.stl))
 endfunction
 
 function! zf_settings#files#all(...) abort

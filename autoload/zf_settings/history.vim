@@ -30,17 +30,17 @@ endfunction
 function! zf_settings#history#command(...) abort
     let items = s:history_source(':')
     if empty(items)
-        return zf_settings#Warn('No command history items!')
+        return zf_settings#warn('No command history items!')
     endif
     let sink = get(a:, 1, 0) ? 's:history_sink' : 's:history_prompt_sink'
-    call zf#Start(items, funcref(sink, [':']), zf_settings#ZfOpts('CommandHistory'))
+    call zf#Start(items, funcref(sink, [':']), zf_settings#zf_opts('CommandHistory'))
 endfunction
 
 function! zf_settings#history#search(...) abort
     let items = s:history_source('/')
     if empty(items)
-        return zf_settings#Warn('No search history items!')
+        return zf_settings#warn('No search history items!')
     endif
     let sink = get(a:, 1, 0) ? 's:history_sink' : 's:history_prompt_sink'
-    call zf#Start(items, funcref(sink, ['/']), zf_settings#ZfOpts('SearchHistory'))
+    call zf#Start(items, funcref(sink, ['/']), zf_settings#zf_opts('SearchHistory'))
 endfunction

@@ -53,21 +53,21 @@ endfunction
 
 function! s:mru_sink(editcmd, choice) abort
     let fname = fnameescape(a:choice)
-    call zf_settings#TryExe(printf('%s %s', a:editcmd, fname))
+    call zf_settings#try_exe(printf('%s %s', a:editcmd, fname))
 endfunction
 
 function! zf_settings#mru#run() abort
     let items = s:vim_recent_files()
     if empty(items)
-        return zf_settings#Warn('No MRU items!')
+        return zf_settings#warn('No MRU items!')
     endif
-    call zf#Start(items, funcref('s:mru_sink', ['edit']), zf_settings#ZfOpts('MRU'))
+    call zf#Start(items, funcref('s:mru_sink', ['edit']), zf_settings#zf_opts('MRU'))
 endfunction
 
 function! zf_settings#mru#run_in_cwd() abort
     let items = s:vim_recent_files_in_cwd()
     if empty(items)
-        return zf_settings#Warn('No MRU items!')
+        return zf_settings#warn('No MRU items!')
     endif
-    call zf#Start(items, funcref('s:mru_sink', ['edit']), zf_settings#ZfOpts(printf('MRU [directory: %s]', getcwd())))
+    call zf#Start(items, funcref('s:mru_sink', ['edit']), zf_settings#zf_opts(printf('MRU [directory: %s]', getcwd())))
 endfunction

@@ -30,11 +30,11 @@ function! s:btags_source(tag_cmds) abort
         throw 'No tags found'
     endif
 
-    return map(zf_settings#AlignLists(map(lines, 's:btags_format(v:val)')), 'join(v:val, g:zf_symbols.tab)')
+    return map(zf_settings#align_lists(map(lines, 's:btags_format(v:val)')), 'join(v:val, g:zf_symbols.tab)')
 endfunction
 
 function! s:btags_sink(path, editcmd, line) abort
-    let linenr = zf_settings#Trim(split(a:line, g:zf_symbols.tab)[0])
+    let linenr = zf_settings#trim(split(a:line, g:zf_symbols.tab)[0])
     execute printf("%s +%s %s", a:editcmd, linenr, a:path)
 endfunction
 
@@ -53,8 +53,8 @@ endfunction
 function! zf_settings#btags#run() abort
     try
         let tag_cmds = s:btags_commands()
-        call zf#Start(s:btags_source(tag_cmds), funcref('s:btags_sink', [expand('%:p'), 'silent edit']), zf_settings#ZfOpts('BufTags: ' . expand('%')))
+        call zf#Start(s:btags_source(tag_cmds), funcref('s:btags_sink', [expand('%:p'), 'silent edit']), zf_settings#zf_opts('BufTags: ' . expand('%')))
     catch
-        call zf_settings#Warn(v:exception)
+        call zf_settings#warn(v:exception)
     endtry
 endfunction

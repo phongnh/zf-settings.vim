@@ -26,7 +26,7 @@ endfunction
 function! zf_settings#jumps#run() abort
     let items = s:jumps_source()
     if len(items) < 2
-        return zf_settings#Warn('No jump items!')
+        return zf_settings#warn('No jump items!')
     endif
-    call zf#Start(items, funcref('s:jumps_sink'), zf_settings#ZfOpts('Jumps'))
+    call zf#Start(items, funcref('s:jumps_sink'), zf_settings#zf_opts('Jumps'))
 endfunction
