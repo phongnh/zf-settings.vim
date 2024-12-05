@@ -73,7 +73,7 @@ function! s:BuildFindAllCommand() abort
                 \ 'fd': 'fd --type file --color never --no-ignore --exclude .git --hidden --follow',
                 \ 'rg': 'rg --files --color never --no-ignore --exclude .git --hidden --follow',
                 \ }
-    let g:zf_find_all_command = l:find_all_commands[g:zf_find_tool ==# 'rg' : 'fd']
+    let g:zf_find_all_command = l:find_all_commands[g:zf_find_tool ==# 'rg' ? 'rg' : 'fd']
     call extend(g:zf, { 'findcmd': g:zf_find_all_command })
 endfunction
 
